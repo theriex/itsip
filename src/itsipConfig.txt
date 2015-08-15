@@ -1,0 +1,10 @@
+category: C - Chill
+category: W - Workout
+category: S - Social
+category: D - Dance
+category: O - Office
+category: T - Travel
+category: X - Other
+defaultfrequency: 30
+membicemail: whoever@example.com
+membicpassw: whatever
