@@ -57,7 +57,7 @@ on loadConfig()
 		set fc to (read fh for (get eof fh) as Çclass utf8È)
 		close access fh
 		set txtlines to my splitString(fc, newline)
-		set wdconf to {defaultfrequency:7, membicemail:"", membicpassw:"", catcodes:{}, catlabels:{}}
+		set wdconf to {defaultfrequency:7, membicemail:"", membicpassw:"", catcodes:{}, catlabels:{}, freqkeys: {"daily", "2 days", "3 days", "weekly", "2 weeks", "monthly", "quarterly", "6 months", "yearly", "never"}, freqdays: {1, 2, 3, 7, 14, 30, 90, 180, 365, 0}}
 		set linum to 0
 		repeat with tl in txtlines
 			set linum to linum + 1

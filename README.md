@@ -57,4 +57,11 @@ you can edit the settings and redefine them.
 The frequency and situational codes are saved in a bracket expression
 prepended to the comments for the track.
 
+Developer notes:
+---------------
+
+Double click any .applescript file to bring it up in the script
+editor.  Emacs will read it, but best to use the native editor.
+Scripts import other scripts by name expecting a .scpt file.  Open the
+required script in the editor and then export it.
 
