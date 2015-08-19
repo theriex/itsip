@@ -26,7 +26,11 @@ end safeIntVal
 
 on strTrim(val)
 	repeat while val starts with " "
-		set val to (characters 2 through (length of val) of val) as text
+		if (length of val) > 1 then
+			set val to (characters 2 through (length of val) of val) as text
+		else
+			set val to ""
+		end if
 	end repeat
 	return val
 end strTrim
@@ -68,7 +72,11 @@ on parseTrackData(comment)
 					set pval to pval & ch
 				end if
 				if ch is equal to "]" then
-					set ptdcmt of tdata to strTrim((characters (idx + 1) through (length of cmt) of cmt) as string)
+					if (length of cmt) > idx then
+						set ptdcmt of tdata to strTrim((characters (idx + 1) through (length of cmt) of cmt) as string)
+					else
+						set ptdcmt of tdata to ""
+					end if
 					exit repeat
 				end if
 				set idx to idx + 1
