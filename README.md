@@ -31,7 +31,7 @@ worth the time.  If you want to get a feel for itsip, the scripts
 should start to get useful after you have a couple of hundred
 significantly diverse tracks categorized. 
 
-You use itsip by running one of the itsip script from the iTunes app
+You use itsip by running one of the itsip scripts from the iTunes app
 script menu:
 
   - **itsipCategorize** prompts you for which keywords should be
@@ -75,7 +75,7 @@ you want.  You also don't want a lot of categories since you will have
 to consider each category for every track, and consider the categories
 again when you are generating a playlist.  The default categories have
 been refined by me over years of use, but if they do not reflect your
-needs then you can edit the settings and redefine them.
+needs then you can edit itsipConfig.txt and redefine them.
 
 The frequency and situational codes are saved in a bracket expression
 prepended to the comments for the track.
