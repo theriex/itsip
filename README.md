@@ -81,6 +81,28 @@ you can edit the settings and redefine them.
 The frequency and situational codes are saved in a bracket expression
 prepended to the comments for the track.
 
+Usage tips:
+----------
+
+You might find it handy to set up a keyboard shortcut to
+itsipCategorize so you can quickly jump to updating categorization
+information for the currently playing track without having to select
+from the script menu.  To bind command-; (one of the few keys not
+already mapped by default):
+
+  * Open System Preferences | "Keyboard" | "Shortcuts" | "App Shortcuts"
+
+  * Click '+' to add a new shortcut
+
+  * Select iTunes as the application, itsipCategorize as the menu
+    title, and command-; as the keyboard shortcut.
+
+You can also update the comment text directly through iTunes (like you
+do for the star rating and the volume adjustment), just be careful not
+to mess up the encoded keyword/frequency information in the square
+brackets preceding the actual comment text.
+
+
 Developer notes:
 ---------------
 
