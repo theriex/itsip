@@ -47,6 +47,10 @@ categorized.
   - **itsipExport** copies the tracks from a playlist into a folder of
     your choice along with an .m3u file.
 
+  - **itsipTransport** writes rating, volume adjustment, and comment
+    data for all of your songs out to itsipTransport.dat, or reads
+    from itsipTransport.dat to import settings into iTunes.
+
 Once you have categorized tracks, you can generate a new playlist for
 any situation simply by selecting what keywords should be included and
 what should not.  You can export playlists and associated tracks to a
