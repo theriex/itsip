@@ -22,14 +22,17 @@ After installing, you will need to categorize and rate all your
 tracks.  That can take a long time, but if you want to pull tracks
 based on your impressions then you need to record what your
 impressions are.  The only shortcut here is that if you trust someone
-else's tastes, and they will send you a dump file, then you can load
-their impressions into your library.  Even leveraging someone else's
-ratings to start, you will need to get used to the idea of classifying
-tracks.  Doing a full pass through your entire collection may be
-daunting, but improving access to your library is worth the time.  If
-you want to get a feel for itsip, the scripts should start to get
-useful after you have a couple of hundred significantly diverse tracks
-categorized.
+else's tastes, and they will send you a transfer file, then you can
+load their impressions into your library.  But even if you leverage
+someone else's ratings to start, you will need to get used to the idea
+of classifying tracks yourself.  Doing a full pass through your entire
+collection may be daunting, but improving access to your library is
+worth the time.  If you want to get a feel for itsip, the scripts
+should start to get useful after you have a couple of hundred
+significantly diverse tracks categorized. 
+
+You use itsip by running one of the itsip script from the iTunes app
+script menu:
 
   - **itsipCategorize** prompts you for which keywords should be
     associated with the currently playing track, how often the track
@@ -42,20 +45,16 @@ categorized.
     keyword and rating specifications.  If you specify your membic
     email and password in *itsipConfig.txt*, then membics for your
     favorite tracks will be automatically created/updated by a call
-    through to *itsipUpload*.
+    through to *itsipUpload* when you rebuild the list.
 
   - **itsipExport** copies the tracks from a playlist into a folder of
-    your choice along with an .m3u file.
+    your choice along with an .m3u file.  Primarily useful for porting
+    a playlist to an Android phone or a memory stick.
 
   - **itsipTransport** writes rating, volume adjustment, and comment
     data for all of your songs out to itsipTransport.dat, or reads
     from itsipTransport.dat to import settings into iTunes.
 
-Once you have categorized tracks, you can generate a new playlist for
-any situation simply by selecting what keywords should be included and
-what should not.  You can export playlists and associated tracks to a
-separate folder, and you can export your ratings and categorizations
-to a flat file to move to another computer.
 
 How itsip works:
 ---------------
@@ -74,9 +73,9 @@ and rate each of the thousands of tracks in your library and then find
 out what you did isn't going to work well for building the playlists
 you want.  You also don't want a lot of categories since you will have
 to consider each category for every track, and consider the categories
-again when you are generating a playlist.  The categories have been
-refined over years of use, but if they do not reflect your needs then
-you can edit the settings and redefine them.
+again when you are generating a playlist.  The default categories have
+been refined by me over years of use, but if they do not reflect your
+needs then you can edit the settings and redefine them.
 
 The frequency and situational codes are saved in a bracket expression
 prepended to the comments for the track.
@@ -97,10 +96,10 @@ already mapped by default):
   * Select iTunes as the application, itsipCategorize as the menu
     title, and command-; as the keyboard shortcut.
 
-You can also update the comment text directly through iTunes (like you
-do for the star rating and the volume adjustment), just be careful not
-to mess up the encoded keyword/frequency information in the square
-brackets preceding the actual comment text.
+The comment text for any track can be updated directly through iTunes
+(like you do for the star rating and the volume adjustment), just be
+careful not to mess up the encoded keyword/frequency information in
+the square brackets preceding the actual comment text.
 
 
 Developer notes:
