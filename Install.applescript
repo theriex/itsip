@@ -7,10 +7,7 @@
 --
 --
 
--- This install file compiles the source .applescript into .scpt files and copies
--- them to ~/Library/iTunes/Scripts/ for direct access from iTunes (find them off
--- the little scroll icon in the menu).
-
+property installdescription : "This install script compiles the source .applescript into .scpt files and copies the compiled files to ~/Library/iTunes/Scripts/ so they can be accessed directly from iTunes. In iTunes, the scripts can be accessed off the small scroll icon in the menu bar."
 property snames : {"itsipCategorize", "itsipExport", "itsipPlaylist", "itsipSettings", "itsipTransfer", "itsipUpload"}
 property locdir : ""
 property itsdir : ""
@@ -18,6 +15,7 @@ property newline : "
 "
 
 on compileAndCopyScriptsToLibrary()
+	display dialog installdescription
 	repeat with sname in snames
 		set cmd to "osacompile -o " & locdir & sname & ".scpt " & locdir & sname & ".applescript"
 		do shell script cmd
@@ -41,7 +39,7 @@ end copyConfigDatToLibrary
 
 
 on displayCompletion()
-	display dialog "Script files installed to " & itsdir
+	display dialog "Script files installed to " & itsdir & ". You can now access the scripts from the scroll icon in iTunes. See the readme for details."
 end displayCompletion
 
 
