@@ -107,17 +107,20 @@ end loadTrackData
 
 on dumpOrLoad()
 	initDatfileName()
-	set ptxt to "You can write data for all tracks out to itsipTransfer.dat, or you can read from itsipTransfer.dat optionally overwriting what you already have. Processing speed is somewhere in the range of 2000 tracks/minute on write, and 500 tracks a minute on read, so go get some coffee or whatever after you click ok.  Select what you want to do:"
+	set ptxt to "Write or read itsipTransfer.dat. This can take a while (~2000 tracks/minute write, ~500 tracks/minute read). There will be a completion message when the script is done running. Select what you want to do:" & newline
 	set acts to {"Write track data", "Read default track data", "Read and overwrite"}
 	set listchoice to choose from list acts with prompt ptxt with title wdtitle
 	if listchoice is false then
 		return false
 	else if (listchoice as text) is equal to ((item 1 of acts) as text) then
 		dumpTrackData()
+		display dialog "Tracks written to ~/Library/iTunes/Scripts/itsipTransfer.dat"
 	else if (listchoice as text) is equal to ((item 2 of acts) as text) then
 		loadTrackData(false)
+		display dialog "Default track categorization data loaded."
 	else if (listchoice as text) is equal to ((item 3 of acts) as text) then
 		loadTrackData(true)
+		display dialog "Track categorizations read completed."
 	end if
 end dumpOrLoad
 
