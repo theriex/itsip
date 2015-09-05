@@ -20,13 +20,61 @@ on splitString(txt, delim)
 end splitString
 
 
+on joinArray(elems, delim)
+	set orgdelim to AppleScript's text item delimiters
+	set AppleScript's text item delimiters to delim
+	set val to elems as string
+	set AppleScript's text item delimiters to orgdelim
+	return val
+end joinArray
+
+
+on oneLineText(txtval)
+	set retval to txtval
+	if txtval contains newline then
+		set va to splitString(txtval, newline)
+		set retval to joinArray(va, "|")
+	end if
+	return retval
+end oneLineText
+
+
 on dumpTrackData()
 	try
 		set wf to open for access datfilename with write permission
 		set eof wf to 0
 		tell application "iTunes"
 			repeat with ctrk in every track
-				set datline to ((name of ctrk) as Çclass utf8È) & tabchar & ((artist of ctrk) as Çclass utf8È) & tabchar & ((album of ctrk) as Çclass utf8È) & tabchar & (year of ctrk) & tabchar & (rating of ctrk) & tabchar & (volume adjustment of ctrk) & tabchar & ((comment of ctrk) as Çclass utf8È) & newline
+				set tnme to ((name of ctrk) as Çclass utf8È)
+				set tart to ((artist of ctrk) as Çclass utf8È)
+				set talb to ((album of ctrk) as Çclass utf8È)
+				set tcmt to ((comment of ctrk) as Çclass utf8È)
+				if tnme contains tabchar then
+					set ptxt to "Remove bad tab character from track name:"
+					set dlgresult to display dialog ptxt default answer tnme
+					set name of ctrk to ((text returned of dlgresult) as Çclass utf8È)
+					set tnme to ((name of ctrk) as Çclass utf8È)
+				end if
+				if tart contains tabchar then
+					set ptxt to "Remove bad tab character from track artist:"
+					set dlgresult to display dialog ptxt default answer tart
+					set artist of ctrk to ((text returned of dlgresult) as Çclass utf8È)
+					set tart to ((artist of ctrk) as Çclass utf8È)
+				end if
+				if talb contains tabchar then
+					set ptxt to "Remove bad tab character from track album:"
+					set dlgresult to display dialog ptxt default answer talb
+					set album of ctrk to ((text returned of dlgresult) as Çclass utf8È)
+					set talb to ((album of ctrk) as Çclass utf8È)
+				end if
+				if tcmt contains tabchar then
+					set ptxt to "Remove bad tab character from track comment:"
+					set dlgresult to display dialog ptxt default answer tcmt
+					set comment of ctrk to ((text returned of dlgresult) as Çclass utf8È)
+					set tcmt to ((comment of ctrk) as Çclass utf8È)
+				end if
+				set tcmt to ((my oneLineText(tcmt)) as Çclass utf8È)
+				set datline to tnme & tabchar & tart & tabchar & talb & tabchar & (year of ctrk) & tabchar & (rating of ctrk) & tabchar & (volume adjustment of ctrk) & tabchar & tcmt & newline
 				write datline as Çclass utf8È to wf
 			end repeat
 		end tell
@@ -65,28 +113,32 @@ end identFieldsMatch
 
 on updateTrackInfo(tinfo, overwrite)
 	tell application "iTunes"
-		set srchres to (search playlist "Music" for (srcname of tinfo) only songs)
-		repeat with trk in srchres
-			-- display dialog "testing " & (name of trk)
-			if my identFieldsMatch(tinfo, (artist of trk), (album of trk), (year of trk)) then
-				set statmsg to "found " & (name of trk) & " - " & (artist of trk)
-				if overwrite or ((rating of trk) is equal to 0) then
-					set updrat to ((srcrating of tinfo) as integer)
-					set statmsg to statmsg & newline & "rating set to " & updrat
-					set (rating of trk) to updrat
+		try
+			set srchres to (search playlist "Music" for (srcname of tinfo) only songs)
+			repeat with trk in srchres
+				-- display dialog "testing " & (name of trk)
+				if my identFieldsMatch(tinfo, (artist of trk), (album of trk), (year of trk)) then
+					set statmsg to "found " & (name of trk) & " - " & (artist of trk)
+					if overwrite or ((rating of trk) is equal to 0) then
+						set updrat to ((srcrating of tinfo) as integer)
+						set statmsg to statmsg & newline & "rating set to " & updrat
+						set (rating of trk) to updrat
+					end if
+					if overwrite or ((volume adjustment of trk) is equal to 0) then
+						set updva to ((srcvoladj of tinfo) as integer)
+						set statmsg to statmsg & newline & "volume adjust set to " & updva
+						set (volume adjustment of trk) to updva
+					end if
+					if overwrite or (((comment of trk) as Çclass utf8È) is equal to "") then
+						set statmsg to statmsg & newline & (srccomment of tinfo)
+						set (comment of trk) to (srccomment of tinfo)
+					end if
+					-- display dialog statmsg
 				end if
-				if overwrite or ((volume adjustment of trk) is equal to 0) then
-					set updva to ((srcvoladj of tinfo) as integer)
-					set statmsg to statmsg & newline & "volume adjust set to " & updva
-					set (volume adjustment of trk) to updva
-				end if
-				if overwrite or (((comment of trk) as Çclass utf8È) is equal to "") then
-					set statmsg to statmsg & newline & (srccomment of tinfo)
-					set (comment of trk) to (srccomment of tinfo)
-				end if
-				-- display dialog statmsg
-			end if
-		end repeat
+			end repeat
+		on error errStr number errorNumber
+			error errStr & " tinfo: " & joinArray(tinfo, "	")
+		end try
 	end tell
 end updateTrackInfo
 
@@ -98,9 +150,15 @@ on loadTrackData(overwrite)
 	set datlines to splitString(fc, newline)
 	set linum to 0
 	repeat with datline in datlines
-		set linum to linum + 1
-		set trkfields to splitString(datline, tabchar)
-		updateTrackInfo({srcname:item 1 of trkfields, srcartist:item 2 of trkfields, srcalbum:item 3 of trkfields, srcyear:item 4 of trkfields, srcrating:item 5 of trkfields, srcvoladj:item 6 of trkfields, srccomment:item 7 of trkfields}, overwrite)
+		try
+			if length of datline ³ 1 then
+				set linum to linum + 1
+				set trkfields to splitString(datline, tabchar)
+				updateTrackInfo({srcname:item 1 of trkfields, srcartist:item 2 of trkfields, srcalbum:item 3 of trkfields, srcyear:item 4 of trkfields, srcrating:item 5 of trkfields, srcvoladj:item 6 of trkfields, srccomment:item 7 of trkfields}, overwrite)
+			end if
+		on error errStr number errorNumber
+			error errStr & " datline: " & datline
+		end try
 	end repeat
 end loadTrackData
 
