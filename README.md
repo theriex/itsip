@@ -29,6 +29,8 @@ Supporting scripts:
 
   - **itsipUpload** uploads your favorite tracks from a selected playlist to membic.com.  This script, and the *TrackWalker.applescript* in the hack directory are probably reasonable starting points for any scripts you want to write yourself.
 
+  - **itsipDelete** walks all your tracks and prompts to delete anything that's one star or less. 
+
 
 How itsip works:
 ---------------
