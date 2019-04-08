@@ -8,7 +8,7 @@
 --
 
 property installdescription : "This install script compiles the source .applescript into .scpt files and copies the compiled files to ~/Library/iTunes/Scripts/ so they can be accessed directly from iTunes. In iTunes, the scripts can be accessed off the small scroll icon in the menu bar."
-property snames : {"itsipCategorize", "itsipExport", "itsipPlaylist", "itsipSettings", "itsipTransfer", "itsipUpload"}
+property snames : {"itsipCategorize", "itsipExport", "itsipPlaylist", "itsipSettings", "itsipTransfer", "itsipUpload", "itsipDelete"}
 property locdir : ""
 property itsdir : ""
 property newline : "

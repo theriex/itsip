@@ -3,5 +3,4 @@ directly using TextEdit or whatever program you used to read this file.
 
 Or read the description online at https://github.com/theriex/itsip
 
-To install, double click the install script and run it.
 
