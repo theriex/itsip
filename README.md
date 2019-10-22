@@ -6,6 +6,8 @@ To install, double click Install.applescript
 Purpose:
 -------
 
+[This project is no longer maintained, check out digger instead]
+
 Automatic creation of playlists for common "just need some music" situations, using tracks from your library based on your categorizations.  This automation is not intended as a substitute for hand curated playlists like you might want for romantic situations, having new friends over for dinner the first time, or other situations where a miscategorized track could turn into a long remembered topic of conversation or worse.  What itsip provides is a way to get back into your collection without having to scroll through a massive track list or put up with automatic suggestions that don't have enough variety.
 
 Using itsip:
